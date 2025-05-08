@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct StoryView: View {
+struct StoryScreenView: View {
   @Environment(\.dismiss) private var dismiss
 
   var body: some View {
@@ -43,5 +43,5 @@ struct StoryView: View {
 }
 
 #Preview {
-  StoryView()
+  StoryScreenView()
 }

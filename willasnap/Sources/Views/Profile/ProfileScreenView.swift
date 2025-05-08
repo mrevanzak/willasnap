@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProfileView: View {
+struct ProfileScreenView: View {
   @State private var showStory = false
 
   var body: some View {
@@ -18,7 +18,7 @@ struct ProfileView: View {
             showStory = true
           }
           .fullScreenCover(isPresented: $showStory) {
-            StoryView()
+            StoryScreenView()
           }
         VStack(alignment: .leading, spacing: 8) {
           Text("Willas Daniel Rorrong Lumban Tobing")
@@ -38,5 +38,5 @@ struct ProfileView: View {
 }
 
 #Preview {
-  ProfileView()
+  ProfileScreenView()
 }

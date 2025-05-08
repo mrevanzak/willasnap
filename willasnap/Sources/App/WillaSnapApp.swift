@@ -4,7 +4,7 @@ import SwiftUI
 struct WillaSnapApp: App {
   var body: some Scene {
     WindowGroup {
-      ProfileView()
+      ProfileScreenView()
     }
   }
 }
