@@ -1,0 +1,56 @@
+import SwiftUI
+
+struct StoryAvatarView: View {
+  let imageSystemName: String = "person.fill"
+  var username: String
+  var size: CGFloat = 120
+	
+  @State private var animateGradient = false
+
+  var body: some View {
+    VStack(spacing: 16) {
+      ZStack {
+        // Rainbow ring
+        Circle()
+          .fill(
+            AngularGradient(
+              colors: [.purple, .blue, .green, .yellow, .orange, .red, .purple],
+              center: .center,
+              startAngle: .degrees(animateGradient ? 0 : 360),
+              endAngle: .degrees(animateGradient ? 360 : 0)
+            )
+          )
+          .frame(width: size + 12, height: size + 12)
+
+        // White border
+        Circle()
+          .fill(.white)
+          .frame(width: size + 8, height: size + 8)
+
+        // Avatar
+        Circle()
+          .fill(Color(.systemGray6))
+          .frame(width: size, height: size)
+          .overlay(
+            Image(systemName: imageSystemName)
+              .resizable()
+              .scaledToFit()
+              .padding(size / 5)
+              .foregroundColor(.gray)
+          )
+      }
+
+      Text(username)
+        .font(.title)
+    }
+    .onAppear {
+      withAnimation(.linear(duration: 4.0).repeatForever(autoreverses: true)) {
+        animateGradient.toggle()
+      }
+    }
+  }
+}
+
+#Preview {
+  StoryAvatarView(username: "username")
+}
