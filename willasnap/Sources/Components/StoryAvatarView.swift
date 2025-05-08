@@ -2,13 +2,12 @@ import SwiftUI
 
 struct StoryAvatarView: View {
   let imageSystemName: String = "person.fill"
-  var username: String
   var size: CGFloat = 120
 
   @State private var animateGradient = false
 
   var body: some View {
-    VStack(spacing: 16) {
+    VStack() {
       ZStack {
         // Rainbow ring
         Circle()
@@ -40,9 +39,6 @@ struct StoryAvatarView: View {
               .foregroundColor(.gray)
           )
       }
-
-      Text(username)
-        .font(.title)
     }
     .onAppear {
       withAnimation(.linear(duration: 4.0).repeatForever(autoreverses: false)) {
@@ -53,5 +49,5 @@ struct StoryAvatarView: View {
 }
 
 #Preview {
-  StoryAvatarView(username: "username")
+  StoryAvatarView()
 }
