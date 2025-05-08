@@ -2,7 +2,8 @@ import AVFoundation
 import SwiftUI
 
 struct AudioPlayerView: View {
-  let audioURL: URL?
+  let audioFileName: String
+  let audioFileExtension: String
   @State private var isPlaying = false
   @State private var player: AVAudioPlayer?
 
@@ -17,9 +18,17 @@ struct AudioPlayerView: View {
         if isPlaying {
           player?.pause()
         } else {
-          if player == nil, let url = audioURL {
-            player = try? AVAudioPlayer(contentsOf: url)
-            player?.prepareToPlay()
+          if player == nil,
+            let url = Bundle.main.url(
+              forResource: audioFileName, withExtension: audioFileExtension,
+            )
+          {
+            do {
+              player = try AVAudioPlayer(contentsOf: url)
+              player?.prepareToPlay()
+            } catch {
+              print("Error initializing audio player: \(error.localizedDescription)")
+            }
           }
           player?.play()
         }
@@ -27,16 +36,16 @@ struct AudioPlayerView: View {
       }) {
         Image(systemName: isPlaying ? "pause.fill" : "play.fill")
           .resizable()
-		  .foregroundColor(.black)
-		  .frame(width: /*@START_MENU_TOKEN@*/20.0/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/20.0/*@END_MENU_TOKEN@*/)
+          .foregroundColor(.black)
+          .frame(width: 20.0, height: 20.0)
       }
       .padding(.leading, 12)
 
       WaveformView(waveform: waveform)
         .frame(maxWidth: .infinity)
-	}
-	.padding(12)
-	.frame(maxWidth: .infinity, maxHeight: 56)
+    }
+    .padding(12)
+    .frame(maxWidth: .infinity, maxHeight: 56)
     .background(Color.gray.opacity(0.2))
     .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
   }
@@ -64,5 +73,5 @@ struct WaveformView: View {
 }
 
 #Preview {
-	AudioPlayerView(audioURL: nil).padding()
+  AudioPlayerView(audioFileName: "willas-intro", audioFileExtension: "m4a").padding()
 }

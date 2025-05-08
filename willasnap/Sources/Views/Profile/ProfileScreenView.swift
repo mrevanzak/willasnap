@@ -29,7 +29,7 @@ struct ProfileScreenView: View {
             .foregroundColor(.gray)
         }
       }
-      AudioPlayerView(audioURL: nil)
+      AudioPlayerView(audioFileName: "willas-intro", audioFileExtension: "m4a")
       Spacer()
     }
     .padding()
