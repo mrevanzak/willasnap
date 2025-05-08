@@ -4,7 +4,7 @@ struct StoryAvatarView: View {
   let imageSystemName: String = "person.fill"
   var username: String
   var size: CGFloat = 120
-	
+
   @State private var animateGradient = false
 
   var body: some View {
@@ -16,11 +16,12 @@ struct StoryAvatarView: View {
             AngularGradient(
               colors: [.purple, .blue, .green, .yellow, .orange, .red, .purple],
               center: .center,
-              startAngle: .degrees(animateGradient ? 0 : 360),
-              endAngle: .degrees(animateGradient ? 360 : 0)
+              startAngle: .degrees(0),
+              endAngle: .degrees(360)
             )
           )
           .frame(width: size + 12, height: size + 12)
+          .rotationEffect(.degrees(animateGradient ? 360 : 0))
 
         // White border
         Circle()
@@ -44,7 +45,7 @@ struct StoryAvatarView: View {
         .font(.title)
     }
     .onAppear {
-      withAnimation(.linear(duration: 4.0).repeatForever(autoreverses: true)) {
+      withAnimation(.linear(duration: 4.0).repeatForever(autoreverses: false)) {
         animateGradient.toggle()
       }
     }
