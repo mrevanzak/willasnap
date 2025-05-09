@@ -43,30 +43,27 @@ struct StoryScreenView: View {
     timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { t in
       let increment = interval / duration
 
-      if progress + increment >= 1.0 {
-        progress = 1.0
-        t.invalidate()
-
-        if currentIndex < stories.count - 1 {
-          DispatchQueue.main.async {
-            goToNextStory()
-          }
-        } else {
-          dismiss()
-        }
-      } else {
+      if progress + increment < 1.0 {
         progress += increment
+        return
+      }
+
+      progress = 1.0
+      t.invalidate()
+
+      DispatchQueue.main.async {
+        goToNextStory()
       }
     }
   }
 
   private func goToNextStory() {
-    if currentIndex < stories.count - 1 {
-      currentIndex += 1
-      startProgress()
-    } else {
+    if currentIndex >= stories.count - 1 {
       dismiss()
+      return
     }
+    currentIndex += 1
+    startProgress()
   }
 
   private func goToPreviousStory() {
