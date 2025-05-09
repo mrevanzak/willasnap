@@ -36,12 +36,24 @@ struct StoryScreenView: View {
   private func startProgress() {
     timer?.invalidate()
     progress = 0.0
-    timer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { t in
-      let increment = 0.02 / stories[currentIndex].duration
+
+    let duration = stories[currentIndex].duration
+    let interval = 0.016  // ~60fps for smoother animation
+
+    timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { t in
+      let increment = interval / duration
+
       if progress + increment >= 1.0 {
         progress = 1.0
         t.invalidate()
-        goToNextStory()
+
+        if currentIndex < stories.count - 1 {
+          DispatchQueue.main.async {
+            goToNextStory()
+          }
+        } else {
+          dismiss()
+        }
       } else {
         progress += increment
       }
@@ -90,7 +102,7 @@ struct StoryScreenView: View {
                         * (geometry.size.width - CGFloat(stories.count - 1) * 4)
                         / CGFloat(stories.count), height: 4
                     )
-                    .animation(.linear(duration: 0.02), value: progress)
+                    .animation(.linear(duration: 0.016), value: progress)
                 }
               }
             }
