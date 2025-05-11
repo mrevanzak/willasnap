@@ -26,68 +26,93 @@ struct ProfileScreenView: View {
   var body: some View {
     NavigationStack {
       ScrollView {
-        VStack(alignment: .center, spacing: 12) {
-          StoryAvatarView(size: 72)
-            .onTapGesture {
-              showStory = true
-            }
-            .fullScreenCover(isPresented: $showStory) {
-              StoryScreenView()
-            }
+        VStack(alignment: .center, spacing: 16) {
+          VStack(alignment: .center, spacing: 12) {
+            StoryAvatarView(size: 72)
+              .onTapGesture {
+                showStory = true
+              }
+              .fullScreenCover(isPresented: $showStory) {
+                StoryScreenView()
+              }
 
-          VStack {
-            Button(
-              action: {
-                withAnimation {
-                  showFullName.toggle()
-                }
-                typingTimer?.invalidate()
-                if showFullName {
-                  // Find common prefix (corrected)
-                  let commonPrefix = String(
-                    zip(fullName, displayedName).prefix { $0 == $1 }.map { $0.0 })
-                  displayedName = commonPrefix
-                  var currentIndex = commonPrefix.count
-                  let characters = Array(fullName)
-                  typingTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) {
-                    timer in
-                    if currentIndex < characters.count {
-                      displayedName += String(characters[currentIndex])
-                      currentIndex += 1
-                    } else {
-                      timer.invalidate()
-                    }
+            VStack {
+              Button(
+                action: {
+                  withAnimation {
+                    showFullName.toggle()
                   }
-                } else {
-                  displayedName = shortName
+                  typingTimer?.invalidate()
+                  if showFullName {
+                    // Find common prefix (corrected)
+                    let commonPrefix = String(
+                      zip(fullName, displayedName).prefix { $0 == $1 }.map { $0.0 })
+                    displayedName = commonPrefix
+                    var currentIndex = commonPrefix.count
+                    let characters = Array(fullName)
+                    typingTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) {
+                      timer in
+                      if currentIndex < characters.count {
+                        displayedName += String(characters[currentIndex])
+                        currentIndex += 1
+                      } else {
+                        timer.invalidate()
+                      }
+                    }
+                  } else {
+                    displayedName = shortName
+                  }
+                }
+              ) {
+                HStack(alignment: .firstTextBaseline, spacing: 4) {
+                  Text(displayedName)
+                    .lineLimit(1)
+                    .font(.title3)
+                    .foregroundStyle(.primary)
+                  if !showFullName {
+                    Image(systemName: "ellipsis")
+                      .font(.caption)
+                      .foregroundColor(.primary)
+                  }
                 }
               }
-            ) {
-              HStack(alignment: .bottom, spacing: 4) {
-                Text(displayedName)
-                  .lineLimit(1)
-                  .font(.title3)
-                  .foregroundStyle(.primary)
-                if !showFullName {
-                  Image(systemName: "ellipsis")
-                    .font(.caption)
-                    .foregroundColor(.primary)
-                    .padding(.bottom, 4)
-                }
-              }
-            }
 
-            Text("Machine Learning Enthusiast")
-              .font(.subheadline)
-              .foregroundColor(.gray)
+              Text("Machine Learning Enthusiast")
+                .font(.subheadline)
+                .foregroundColor(.gray)
+            }
+            .buttonStyle(.borderless)
+            .accessibilityLabel("Toggle full name")
           }
-          .buttonStyle(.borderless)
-          .accessibilityLabel("Toggle full name")
 
           AudioPlayerView(audioFileName: "willas-intro", audioFileExtension: "m4a")
-        }
 
-        Spacer()
+          // Personal Information Section
+          VStack(alignment: .leading, spacing: 12) {
+            Text("Personal Information")
+              .font(.headline)
+              .foregroundColor(.primary)
+
+            VStack(alignment: .leading, spacing: 8) {
+              HStack {
+                Image(systemName: "birthday.cake")
+                  .foregroundColor(.blue)
+                Text("Date of Birth:")
+                  .font(.subheadline)
+                  .foregroundColor(.secondary)
+                Spacer()
+                Text("Padang, 7 May 2000")
+                  .font(.subheadline)
+              }
+            }
+          }
+          .padding()
+          .background(
+            RoundedRectangle(cornerRadius: 12)
+              .fill(Color(.systemGray6))
+          )
+          // End Personal Information Section
+        }
       }
     }
     .contentMargins(.horizontal, 16, for: .scrollContent)
