@@ -39,13 +39,13 @@ struct AudioPlayerView: View {
           .foregroundColor(.black)
           .frame(width: 20.0, height: 20.0)
       }
-      .padding(.leading, 12)
 
-      WaveformView(waveform: waveform).frame(maxWidth: .infinity, maxHeight: 32)
+      WaveformView(waveform: waveform)
     }
-    .padding(12)
+	.padding(.horizontal, 16.0)
+	.padding(.vertical, 8.0)
     .background(Color.gray.opacity(0.2))
-    .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+    .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
   }
 }
 
@@ -68,7 +68,7 @@ struct WaveformView: View {
       }
       .frame(height: geometry.size.height, alignment: .center)
     }
-    .frame(height: 32)
+    .frame(height: 24)
   }
 }
 
