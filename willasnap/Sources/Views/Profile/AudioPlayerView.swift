@@ -41,11 +41,9 @@ struct AudioPlayerView: View {
       }
       .padding(.leading, 12)
 
-      WaveformView(waveform: waveform)
-        .frame(maxWidth: .infinity)
+      WaveformView(waveform: waveform).frame(maxWidth: .infinity, maxHeight: 32)
     }
     .padding(12)
-    .frame(maxWidth: .infinity, maxHeight: 56)
     .background(Color.gray.opacity(0.2))
     .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
   }
@@ -58,17 +56,19 @@ struct WaveformView: View {
   var body: some View {
     GeometryReader { geometry in
       HStack(alignment: .center, spacing: 2) {
-        ForEach(0..<Int(geometry.size.width / (barWidth + 2)), id: \.self) { idx in
+        let barCount = Int(geometry.size.width / (barWidth + 2))
+        ForEach(0..<barCount, id: \.self) { idx in
           Capsule()
             .fill(Color.gray)
             .frame(
               width: barWidth,
-              height: 32 * waveform[idx % waveform.count]
+              height: max(geometry.size.height * waveform[idx % waveform.count], 2)
             )
         }
       }
-      .frame(maxWidth: .infinity)
+      .frame(height: geometry.size.height, alignment: .center)
     }
+    .frame(height: 32)
   }
 }
 
