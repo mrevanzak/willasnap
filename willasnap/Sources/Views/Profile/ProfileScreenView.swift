@@ -5,9 +5,12 @@
 //  Created by Revanza Kurniawan on 07/05/25.
 //
 
+import Inject
 import SwiftUI
 
 struct ProfileScreenView: View {
+  @ObservedObject private var iO = InjectConfiguration.observer
+
   @State private var showStory = false
   @State private var scrollOffset: CGFloat = 0
 
@@ -60,7 +63,7 @@ struct ProfileScreenView: View {
                 }
               }
             ) {
-              HStack {
+              HStack(alignment: .bottom, spacing: 4) {
                 Text(displayedName)
                   .lineLimit(1)
                   .font(.title3)
@@ -68,7 +71,8 @@ struct ProfileScreenView: View {
                 if !showFullName {
                   Image(systemName: "ellipsis")
                     .font(.caption)
-                    .foregroundColor(.accentColor)
+                    .foregroundColor(.primary)
+                    .padding(.bottom, 4)
                 }
               }
             }
@@ -79,9 +83,10 @@ struct ProfileScreenView: View {
           }
           .buttonStyle(.borderless)
           .accessibilityLabel("Toggle full name")
+
+          AudioPlayerView(audioFileName: "willas-intro", audioFileExtension: "m4a")
         }
 
-        AudioPlayerView(audioFileName: "willas-intro", audioFileExtension: "m4a")
         Spacer()
       }
     }
@@ -89,6 +94,7 @@ struct ProfileScreenView: View {
     .navigationTitle(scrollOffset < -40 ? "Profile" : "")
     .navigationBarTitleDisplayMode(.inline)
     .animation(.easeInOut, value: scrollOffset)
+    .enableInjection()
   }
 }
 
