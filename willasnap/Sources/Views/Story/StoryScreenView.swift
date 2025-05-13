@@ -80,30 +80,13 @@ struct StoryScreenView: View {
           .ignoresSafeArea()
 
         VStack(spacing: 0) {
-          // Top progress bar
-          HStack(spacing: 4) {
-            ForEach(0..<stories.count, id: \.self) { idx in
-              ZStack(alignment: .leading) {
-                Capsule()
-                  .fill(Color.white.opacity(0.3))
-                  .frame(height: 4)
-                if idx < currentIndex {
-                  Capsule()
-                    .fill(Color.white)
-                    .frame(height: 4)
-                } else if idx == currentIndex {
-                  Capsule()
-                    .fill(Color.white)
-                    .frame(
-                      width: CGFloat(progress)
-                        * (geometry.size.width - CGFloat(stories.count - 1) * 4)
-                        / CGFloat(stories.count), height: 4
-                    )
-                    .animation(.linear(duration: 0.016), value: progress)
-                }
-              }
-            }
-          }
+          StoryProgressBarView(
+            count: stories.count,
+            currentIndex: currentIndex,
+            progress: progress,
+            spacing: 4,
+            barHeight: 4
+          )
           .padding(.horizontal, 12)
 
           // Story header
