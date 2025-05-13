@@ -5,12 +5,9 @@
 //  Created by Revanza Kurniawan on 07/05/25.
 //
 
-import Inject
 import SwiftUI
 
 struct ProfileScreenView: View {
-  @ObservedObject private var iO = InjectConfiguration.observer
-
   @State private var showStory = false
   @State private var scrollOffset: CGFloat = 0
 
@@ -119,7 +116,6 @@ struct ProfileScreenView: View {
     .navigationTitle(scrollOffset < -40 ? "Profile" : "")
     .navigationBarTitleDisplayMode(.inline)
     .animation(.easeInOut, value: scrollOffset)
-    .enableInjection()
   }
 }
 

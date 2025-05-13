@@ -6,10 +6,6 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		C5E780372DD093D600051908 /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = C5E780362DD093D600051908 /* Inject */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXContainerItemProxy section */
 		C5864ACA2DCB0627008CD654 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -56,7 +52,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5E780372DD093D600051908 /* Inject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,7 +112,6 @@
 			);
 			name = willasnap;
 			packageProductDependencies = (
-				C5E780362DD093D600051908 /* Inject */,
 			);
 			productName = willasnap;
 			productReference = C5864ABB2DCB0626008CD654 /* willasnap.app */;
@@ -201,9 +195,6 @@
 			);
 			mainGroup = C5864AB22DCB0626008CD654;
 			minimizedProjectReferenceProxies = 1;
-			packageReferences = (
-				C5E780352DD08F6600051908 /* XCRemoteSwiftPackageReference "Inject" */,
-			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = C5864ABC2DCB0626008CD654 /* Products */;
 			projectDirPath = "";
@@ -421,10 +412,6 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.4;
 				MARKETING_VERSION = 1.0;
-				OTHER_LDFLAGS = (
-					"-Xlinker",
-					"-interposable",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = app.mrevanzak.willasnap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
@@ -464,7 +451,6 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.4;
 				MARKETING_VERSION = 1.0;
-				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = app.mrevanzak.willasnap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
@@ -488,10 +474,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
 				MACOSX_DEPLOYMENT_TARGET = 15.4;
 				MARKETING_VERSION = 1.0;
-				OTHER_LDFLAGS = (
-					"-Xlinker",
-					"-interposable",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = app.mrevanzak.willasnapTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -537,10 +519,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
 				MACOSX_DEPLOYMENT_TARGET = 15.4;
 				MARKETING_VERSION = 1.0;
-				"OTHER_LDFLAGS[arch=*]" = (
-					"-Xlinker",
-					"-interposable",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = app.mrevanzak.willasnapUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -585,7 +563,7 @@
 				C5864ADC2DCB0627008CD654 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		C5864ADD2DCB0627008CD654 /* Build configuration list for PBXNativeTarget "willasnap" */ = {
 			isa = XCConfigurationList;
@@ -594,7 +572,7 @@
 				C5864ADF2DCB0627008CD654 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		C5864AE02DCB0627008CD654 /* Build configuration list for PBXNativeTarget "willasnapTests" */ = {
 			isa = XCConfigurationList;
@@ -603,7 +581,7 @@
 				C5864AE22DCB0627008CD654 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		C5864AE32DCB0627008CD654 /* Build configuration list for PBXNativeTarget "willasnapUITests" */ = {
 			isa = XCConfigurationList;
@@ -612,28 +590,9 @@
 				C5864AE52DCB0627008CD654 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		C5E780352DD08F6600051908 /* XCRemoteSwiftPackageReference "Inject" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/krzysztofzablocki/Inject.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.5.2;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		C5E780362DD093D600051908 /* Inject */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C5E780352DD08F6600051908 /* XCRemoteSwiftPackageReference "Inject" */;
-			productName = Inject;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C5864AB32DCB0626008CD654 /* Project object */;
 }
