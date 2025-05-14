@@ -1,13 +1,13 @@
 import SwiftUI
 
-struct StoryAvatarView: View {
-  let imageSystemName: String = "person.fill"
+struct StoryAvatarView<Content: View>: View {
   var size: CGFloat = 120
+  @ViewBuilder var content: () -> Content
 
   @State private var animateGradient = false
 
   var body: some View {
-    VStack() {
+    VStack {
       ZStack {
         // Rainbow ring
         Circle()
@@ -32,11 +32,8 @@ struct StoryAvatarView: View {
           .fill(Color(.systemGray6))
           .frame(width: size, height: size)
           .overlay(
-            Image(systemName: imageSystemName)
-              .resizable()
-              .scaledToFit()
-              .padding(size / 5)
-              .foregroundColor(.gray)
+            content()
+              .clipShape(Circle())
           )
       }
     }
@@ -49,5 +46,9 @@ struct StoryAvatarView: View {
 }
 
 #Preview {
-  StoryAvatarView()
+  StoryAvatarView(size: 80) {
+    Image("willas")
+      .resizable()
+      .scaledToFill()
+  }
 }

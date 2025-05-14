@@ -25,13 +25,17 @@ struct ProfileScreenView: View {
       ScrollView {
         VStack(alignment: .center, spacing: 16) {
           VStack(alignment: .center, spacing: 12) {
-            StoryAvatarView(size: 72)
-              .onTapGesture {
-                showStory = true
-              }
-              .fullScreenCover(isPresented: $showStory) {
-                StoryScreenView()
-              }
+            StoryAvatarView(size: 80) {
+              Image("willas")
+                .resizable()
+                .scaledToFill()
+            }
+            .onTapGesture {
+              showStory = true
+            }
+            .fullScreenCover(isPresented: $showStory) {
+              StoryScreenView()
+            }
 
             VStack {
               Button(
@@ -98,7 +102,7 @@ struct ProfileScreenView: View {
                   .font(.subheadline)
                   .foregroundColor(.secondary)
                 Spacer()
-                Text("Padang, 7 May 2000")
+                Text("Palu, 16 April 2005")
                   .font(.subheadline)
               }
             }
