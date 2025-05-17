@@ -22,7 +22,7 @@ struct IntroScreenView: View {
       AmbientBackground()
         .animation(.easeInOut(duration: 1), value: activeCard)
 
-      VStack(spacing: 40) {
+      VStack(spacing: 56) {
         InfiniteScrollView {
           ForEach(cards) { card in
             CarouselCardView(card)
@@ -64,9 +64,10 @@ struct IntroScreenView: View {
           .font(.body)
           .multilineTextAlignment(.center)
           .foregroundStyle(.white.secondary)
-          .offset(y: initialAnimation ? 0 : 40)
+          .offset(y: initialAnimation ? 0 : -40)
           .opacity(initialAnimation ? 1 : 0)
-          .animation(.easeOut(duration: 0.5).delay(0.5), value: initialAnimation)
+          .animation(
+			.spring(response: 0.4, dampingFraction: 0.3).delay(0.5), value: initialAnimation)
         }
 
         Button {
@@ -134,6 +135,8 @@ struct IntroScreenView: View {
 
   @ViewBuilder
   private func CarouselCardView(_ card: Card) -> some View {
+    let screenWidth = UIScreen.main.bounds.width
+
     GeometryReader {
       let size = $0.size
 
@@ -144,12 +147,13 @@ struct IntroScreenView: View {
         .clipShape(.rect(cornerRadius: 20))
         .shadow(color: .black.opacity(0.4), radius: 10, x: 1, y: 0)
 
-    }.frame(width: 220)
-      .scrollTransition(.interactive.threshold(.centered), axis: .horizontal) { content, phase in
-        content
-          .offset(y: phase == .identity ? -10 : 0)
-          .rotationEffect(.degrees(phase.value * 5), anchor: .bottom)
-      }
+    }
+    .frame(width: screenWidth * 0.65)
+    .scrollTransition(.interactive.threshold(.centered), axis: .horizontal) { content, phase in
+      content
+        .offset(y: phase == .identity ? -10 : 0)
+        .rotationEffect(.degrees(phase.value * 5), anchor: .bottom)
+    }
   }
 
 }
