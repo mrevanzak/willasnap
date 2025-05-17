@@ -8,27 +8,36 @@
 import SwiftUI
 
 struct ProfileScreenView: View {
+  @Environment(\.colorScheme) var colorScheme
   @State private var showStory = false
   @State private var scrollOffset: CGFloat = 0
+  @State private var enlargeAvatar: Bool = false
 
   @State private var showFullName = false
   @State private var displayedName = "Willas Daniel"
   @State private var typingTimer: Timer?
 
+  let screenWidth = UIScreen.main.bounds.width
+
   let fullName = "Willas Daniel Rorrong Lumban Tobing"
   let shortName = "Willas Daniel"
 
-  //  @Binding var offset: CGPoint
+  var normalizedProgress: CGFloat {
+    let dynamicIslandDistance: CGFloat = -25.0
+    let calculatedOffset = min(0, max(scrollOffset, dynamicIslandDistance))
+    return abs(calculatedOffset / dynamicIslandDistance)
+  }
 
   var body: some View {
     NavigationStack {
       ScrollView {
         VStack(alignment: .center, spacing: 16) {
           VStack(alignment: .center, spacing: 12) {
-            StoryAvatarView(size: 80) {
+            StoryAvatarView(size: 96) {
               Image("willas")
                 .resizable()
                 .scaledToFill()
+                .blur(radius: 10 * normalizedProgress, opaque: true)
             }
             .onTapGesture {
               showStory = true
@@ -36,6 +45,8 @@ struct ProfileScreenView: View {
             .fullScreenCover(isPresented: $showStory) {
               StoryScreenView()
             }
+            .scaleEffect(1.0 - normalizedProgress * 0.5, anchor: .top)
+            .trackOffset($scrollOffset, in: "scroll")
 
             VStack {
               Button(
@@ -115,9 +126,16 @@ struct ProfileScreenView: View {
           // End Personal Information Section
         }
       }
+      .overlay(alignment: .top) {
+        Rectangle()
+          .fill(colorScheme == .dark ? Color.black : Color.white)
+          .frame(width: screenWidth, height: 15)
+          .ignoresSafeArea()
+      }
+      .coordinateSpace(name: "scroll")
     }
     .contentMargins(.horizontal, 16, for: .scrollContent)
-    .navigationTitle(scrollOffset < -40 ? "Profile" : "")
+    .navigationTitle("Profile")
     .navigationBarTitleDisplayMode(.inline)
     .animation(.easeInOut, value: scrollOffset)
   }
