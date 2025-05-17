@@ -52,16 +52,16 @@ struct IntroScreenView: View {
         }
 
         VStack(spacing: 4) {
-          Text("Horas!")
+          Text("Halo!")
             .font(.largeTitle.bold())
             .foregroundStyle(.white)
             .textRenderer(TitleTextRenderer(progress: titleProgress))
             .padding(.bottom, 12)
 
           Text(
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            "This is me, Willas. I'm a second year student majoring informatics at Universitas Ciputra Surabaya, that is always fueled by curiosity and hard work to achieve many things. I am fond to collaborate and work with other people."
           )
-          .font(.callout)
+          .font(.body)
           .multilineTextAlignment(.center)
           .foregroundStyle(.white.secondary)
           .offset(y: initialAnimation ? 0 : 40)

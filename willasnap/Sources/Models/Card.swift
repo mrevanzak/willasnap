@@ -14,6 +14,7 @@ struct Card: Identifiable, Hashable {
 }
 
 let cards: [Card] = [
+  .init(image: "willas"),
   .init(image: "willas-2"),
   .init(image: "willas-3"),
 ]
