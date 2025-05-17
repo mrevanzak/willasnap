@@ -4,7 +4,11 @@ import SwiftUI
 struct WillaSnapApp: App {
   var body: some Scene {
     WindowGroup {
-      ProfileScreenView()
+      IntroScreenView()
     }
   }
+}
+
+#Preview {
+  IntroScreenView()
 }
