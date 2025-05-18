@@ -44,8 +44,10 @@ struct ProfileScreenView: View {
   let skills = [
     "MachineLearning", "Swift", "Python", "iOS", "Photography", "Chess", "PublicSpeaking",
   ]
-  let contactEmail = "willas.daniel@email.com"
-  let instagram = "@willas.codes"
+  let contactEmail = "willytobs@gmail.com"
+  let contactPhone = "+62 822 5967 2632"
+  let instagram = "@willastobing"
+  let linkedin = "www.linkedin.com/in/willastobing"
 
   var body: some View {
     NavigationStack {
@@ -197,10 +199,23 @@ struct ProfileScreenView: View {
             VStack(alignment: .leading, spacing: 8) {
               Text("Contact / Social")
                 .font(.headline)
-              HStack(spacing: 16) {
+              HStack(spacing: 12) {
                 Image(systemName: "envelope").foregroundColor(.blue)
                 Spacer()
                 Text(contactEmail).font(.subheadline)
+              }
+              HStack(spacing: 12) {
+                Image(systemName: "phone").foregroundColor(.green)
+                Text(contactPhone).font(.subheadline)
+              }
+              HStack(spacing: 12) {
+                Image(systemName: "camera").foregroundColor(.purple)
+                Text(instagram).font(.subheadline)
+              }
+              HStack(spacing: 12) {
+                Image(systemName: "link").foregroundColor(.blue)
+                Link(linkedin, destination: URL(string: "https://" + linkedin)!)
+                  .font(.subheadline)
               }
             }
             .padding()
@@ -208,17 +223,6 @@ struct ProfileScreenView: View {
               RoundedRectangle(cornerRadius: 16)
                 .fill(Color(.systemGray6).opacity(0.95))
             )
-
-            ForEach(0..<50) { _ in
-              VStack {
-                Text("Hello, world!")
-              }
-              .padding()
-              .background(
-                RoundedRectangle(cornerRadius: 16)
-                  .fill(Color(.systemGray6).opacity(0.95))
-              )
-            }
           }
           .padding(.vertical, 16)
         }
