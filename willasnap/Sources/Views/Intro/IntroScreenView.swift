@@ -67,7 +67,7 @@ struct IntroScreenView: View {
           .offset(y: initialAnimation ? 0 : -40)
           .opacity(initialAnimation ? 1 : 0)
           .animation(
-			.spring(response: 0.4, dampingFraction: 0.3).delay(0.5), value: initialAnimation)
+            .spring(response: 0.4, dampingFraction: 0.3).delay(0.5), value: initialAnimation)
         }
 
         Button {

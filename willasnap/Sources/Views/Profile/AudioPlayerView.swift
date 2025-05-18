@@ -48,7 +48,6 @@ struct AudioPlayerView: View {
     }
     .padding(.horizontal, 16.0)
     .padding(.vertical, 8.0)
-    .background(Color(.systemGray6))
     .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
     .onDisappear {
       timer?.invalidate()
