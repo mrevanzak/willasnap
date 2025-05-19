@@ -17,4 +17,6 @@ let cards: [Card] = [
   .init(image: "willas"),
   .init(image: "willas-2"),
   .init(image: "willas-3"),
+  .init(image: "willas-4"),
+  .init(image: "willas-5"),
 ]

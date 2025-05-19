@@ -69,20 +69,23 @@ struct ProfileScreenView: View {
           VStack(alignment: .center, spacing: 24) {
             // Profile Image + Name
             VStack(alignment: .center, spacing: 10) {
-              StoryAvatarView(size: 96) {
-                Image("willas")
-                  .resizable()
-                  .scaledToFill()
-                  .blur(radius: 10 * normalizedProgress, opaque: true)
+              ZStack {
+                StoryAvatarView(size: 96) {
+                  Image("willas")
+                    .resizable()
+                    .scaledToFill()
+                    .blur(radius: 10 * normalizedProgress, opaque: true)
+                }
+                .shadow(color: Color.white.opacity(0.25), radius: 8, x: 0, y: 4)
+                .onTapGesture {
+                  showStory = true
+                }
+                .fullScreenCover(isPresented: $showStory) {
+                  StoryScreenView()
+                }
+                .scaleEffect(1.0 - normalizedProgress * 0.5, anchor: .top)
+                .trackOffset($scrollOffset, in: "scroll")
               }
-              .onTapGesture {
-                showStory = true
-              }
-              .fullScreenCover(isPresented: $showStory) {
-                StoryScreenView()
-              }
-              .scaleEffect(1.0 - normalizedProgress * 0.5, anchor: .top)
-              .trackOffset($scrollOffset, in: "scroll")
               Button(action: {
                 withAnimation { showFullName.toggle() }
                 typingTimer?.invalidate()
@@ -108,23 +111,35 @@ struct ProfileScreenView: View {
                 HStack(alignment: .firstTextBaseline, spacing: 4) {
                   Text(displayedName)
                     .lineLimit(1)
-                    .font(.title2.bold())
+					.font(.title2)
                     .foregroundStyle(
                       LinearGradient(
-                        colors: [.blue, .purple], startPoint: .leading, endPoint: .trailing)
+                        colors: [.cyan, .blue, .purple, .pink, .orange],
+                        startPoint: .leading,
+                        endPoint: .trailing
+                      )
                     )
+                    .shadow(color: .black.opacity(0.7), radius: 4, x: 0, y: 2)
                   if !showFullName {
                     Image(systemName: "ellipsis")
                       .font(.caption)
-                      .foregroundColor(.secondary)
+                      .foregroundColor(.white.opacity(0.8))
                   }
                 }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 2)
+                .background(
+                  Color.black.opacity(0.18)
+                    .blur(radius: 2)
+                    .cornerRadius(8)
+                )
               }
               .buttonStyle(.borderless)
               .accessibilityLabel("Toggle full name")
               Text("Machine Learning Enthusiast")
                 .font(.subheadline)
-                .foregroundColor(.gray)
+                .foregroundColor(.white)
+                .shadow(color: .black.opacity(0.8), radius: 2, x: 0, y: 1)
             }
 
             // Audio Intro
@@ -206,14 +221,17 @@ struct ProfileScreenView: View {
               }
               HStack(spacing: 12) {
                 Image(systemName: "phone").foregroundColor(.green)
+                Spacer()
                 Text(contactPhone).font(.subheadline)
               }
               HStack(spacing: 12) {
                 Image(systemName: "camera").foregroundColor(.purple)
+                Spacer()
                 Text(instagram).font(.subheadline)
               }
               HStack(spacing: 12) {
                 Image(systemName: "link").foregroundColor(.blue)
+                Spacer()
                 Link(linkedin, destination: URL(string: "https://" + linkedin)!)
                   .font(.subheadline)
               }
